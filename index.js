@@ -13,7 +13,7 @@
 	})
 	
 	dispatch.hook('C_CHAT', 1, event => {
-		if(/^<FONT>!loc<\/FONT>$/i.test(event.message)) {
+		if(/^<FONT>!location<\/FONT>$/i.test(event.message)) {
 			if(!enabled) {
 				enabled = true
 				message('LocationInfo <font color="#00ff99">Enabled</font>')
