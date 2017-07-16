@@ -4,12 +4,10 @@
  module.exports = function LocationInfo(dispatch) {  
  
 	let cid = null,
-		player = '',
 		enabled = false // true = Enabled by default
 	
 	dispatch.hook('S_LOGIN', 1, event => {
 		({cid} = event)
-		player = event.name
 	})
 	
 	dispatch.hook('C_CHAT', 1, event => {
