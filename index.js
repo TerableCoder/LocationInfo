@@ -39,7 +39,7 @@
 	}
 	
 	dispatch.hook('C_PLAYER_LOCATION', 1, event => {
-		if(enabled) console.log('Location XYZW (%d %d %d %d)', Math.round(event.x1), Math.round(event.y1), Math.round(event.z1), event.w)
+		if(enabled) console.log('Location XYZW [ %d | %d | %d | %d ]', Math.round(event.x1), Math.round(event.y1), Math.round(event.z1), event.w)
 	})
 	
 	dispatch.hook('S_LOAD_TOPO', 1, (event) => {      
