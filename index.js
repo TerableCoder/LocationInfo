@@ -1,14 +1,6 @@
- // Totally not using this to cheat! 
- // Script by your one and only animu girl - Brandy (/w\)
+module.exports = function LocationInfo(dispatch) {  
  
- module.exports = function LocationInfo(dispatch) {  
- 
-	let cid = null,
-		enabled = false // true = Enabled by default
-	
-	dispatch.hook('S_LOGIN', 1, event => {
-		({cid} = event)
-	})
+	let enabled = false // true = Enabled by default
 	
 	dispatch.hook('C_CHAT', 1, event => {
 		if(/^<FONT>!location<\/FONT>$/i.test(event.message)) {
@@ -40,7 +32,8 @@
 		if(enabled) console.log('Location XYZW [ %d | %d | %d | %d ]', Math.round(event.x1), Math.round(event.y1), Math.round(event.z1), event.w)
 	})
 	
-	dispatch.hook('S_LOAD_TOPO', 1, (event) => {      
-                if(enabled) console.log('ZoneID', event.zone)
+	dispatch.hook('S_LOAD_TOPO', 1, (event) => {
+		if(enabled) console.log('ZoneID', event.zone)
     })
+
  }
