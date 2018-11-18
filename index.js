@@ -1,39 +1,20 @@
-module.exports = function LocationInfo(dispatch) {  
+const Command = require('command')
+
+module.exports = function LocationInfo(mod) {
+	const command = Command(mod)
  
-	let enabled = false // true = Enabled by default
+	let enabled = false
 	
-	dispatch.hook('C_CHAT', 1, event => {
-		if(/^<FONT>!location<\/FONT>$/i.test(event.message)) {
-			if(!enabled) {
-				enabled = true
-				message('LocationInfo <font color="#00ff99">Enabled</font>')
-			}
-			else {
-				enabled = false
-				message('LocationInfo <font color="#ff3300">Disabled</font>')
-			}
-			return false
-		}
-	})
-  
-	function message(msg) {
-		dispatch.toClient('S_CHAT', 1, {
-			channel: 24,
-			authorID: 0,
-			unk1: 0,
-			gm: 0,
-			unk2: 0,
-			authorName: '',
-			message: msg
-		})
-	}
-	
-	dispatch.hook('C_PLAYER_LOCATION', 1, event => {
-		if(enabled) console.log('Location XYZW [ %d | %d | %d | %d ]', Math.round(event.x1), Math.round(event.y1), Math.round(event.z1), event.w)
+	mod.hook('C_PLAYER_LOCATION', 5, event => {
+		if(enabled) console.log('Location XYZW [ %d | %d | %d | %d ]', Math.round(event.loc.x), Math.round(event.loc.y), Math.round(event.loc.z), event.w)
 	})
 	
-	dispatch.hook('S_LOAD_TOPO', 1, (event) => {
+	mod.hook('S_LOAD_TOPO', 3, event => {
 		if(enabled) console.log('ZoneID', event.zone)
     })
 
+	command.add('location', (arg) => {
+        enabled = !enabled
+        command.message('[LocationInfo] ' + (enabled ? 'enabled' : 'disabled'))
+    })
  }
